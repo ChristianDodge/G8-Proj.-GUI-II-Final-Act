@@ -1,1 +1,12 @@
-{"seen":[1,2,3,4,5,10],"saved":[],"savedForLater":[1,2,3,null]}
+{
+  "seen": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    10
+  ],
+  "saved": [],
+  "savedForLater": []
+}

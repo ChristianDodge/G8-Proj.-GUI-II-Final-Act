@@ -9,6 +9,12 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+app.use(express.static(path.join(__dirname, 'pages')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'index.html'));
+});
+
 app.use(express.static(path.join(__dirname)));
 app.use(express.json()); // to parse JSON request bodies
 
@@ -70,7 +76,7 @@ function write(data, field, type) { //write function which takes a data value (i
 
 app.get('/movies', async (req, res) => {
     try {
-        const response = await axios.get('https://api.themoviedb.org/3/discover/movie?year=2019&page=1', {
+        const response = await axios.get('https://api.themoviedb.org/3/trending/movie/week', {
             headers: {
                 'Authorization': `Bearer ${process.env.TMDB_ACCESS_TOKEN}`
             }
@@ -104,6 +110,7 @@ app.get('/movies', async (req, res) => {
             if (!readData.seen.includes(response.data.results[i].id)) {  // Ensure movie isn't in the seen list
                 const movie = {
                     // sorted the raw movie data for front end
+                    id: response.data.results[i].id,  // Add the ID from the API
                     title: response.data.results[i].title,
                     description: response.data.results[i].overview,
                     image: `https://image.tmdb.org/t/p/w500${response.data.results[i].poster_path}`,
@@ -123,6 +130,17 @@ app.get('/movies', async (req, res) => {
         res.status(500).json({ error: error.message }); // Handle API errors gracefully
     }
 });
+
+app.get('/saved-movies', async (req, res) => {
+    try {
+        let readData = await read();
+        res.json(readData.saved || []);
+    } catch (error) {
+        console.error("Error fetching saved movies:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 // Start the Express server
 app.listen(PORT, () => {
