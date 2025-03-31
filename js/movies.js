@@ -1,5 +1,5 @@
 // fetch movie data from the backend
-fetch('http://localhost:3000/movies')
+fetch('https://www.james-chan.me/final-act/movies')
   .then(response => response.json()) // parse the response as JSON
   .then(movies => {
     const moviesGrid = document.querySelector('.prev-movies-grid'); // find the grid where movies will be displayed
