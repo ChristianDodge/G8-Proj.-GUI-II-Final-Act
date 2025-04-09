@@ -304,6 +304,27 @@ nav {
   gap: 15px;            /* Space between image and text */
 }
 
+.watched-movies-grid { 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three tables per row. */
+  gap: 30px; 
+  justify-content: center;
+  padding: 40px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.watched-movie-card {
+  display: flex;         /* Side-by-side layout */
+  align-items: center;   /* Align items vertically */
+  background-color: white;      /* Dark background for contrast */
+  color: black;
+  border-radius: 10px;   /* Rounded corners */
+  padding: 20px;
+  width: 500px;          /* Adjust size as needed */
+  gap: 15px;            /* Space between image and text */
+}
+
 .details {
   color: black;
 }

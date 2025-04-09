@@ -46,4 +46,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // re-render the saved movies without the removed one
         renderSavedMovies(); 
     };
+    document.getElementById("group-prompt").addEventListener("click", () => {
+        document.getElementById("popup").style.display = "flex";
+    });
+
+    document.querySelector(".popup-content .action-button").addEventListener("click", () => {
+        savedMovies = []; // clear the saved movies array 
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies)); // update localStorage
+        renderSavedMovies();
+        document.getElementById("popup").style.display = "none";
+    });
 });

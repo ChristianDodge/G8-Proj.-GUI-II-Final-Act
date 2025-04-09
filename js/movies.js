@@ -1,5 +1,5 @@
 // fetch movie data from the backend
-fetch('https://www.james-chan.me/final-act/movies')
+fetch('http://localhost:3000/movies')
   .then(response => response.json()) // parse the response as JSON
   .then(movies => {
     const moviesGrid = document.querySelector('.prev-movies-grid'); // find the grid where movies will be displayed
@@ -7,22 +7,15 @@ fetch('https://www.james-chan.me/final-act/movies')
     // get saved movies from localStorage, or initialize an empty array if none are saved
     let savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
 
+    // get watched movies from localStorage, or initialize an empty array if none are saved
+    let watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+
     // loop through each movie
     movies.forEach(movie => {
 
-        /*
-      // debugging: verify that there is a movie id
-      console.log(`Movie ID: ${movie.id}`);
-        
-      // check if the movie ID exists, skip if not
-      if (!movie.id) {
-        console.error(`Movie ID is missing for: ${movie.title}`);
-        return;  // skip this movie if there's no valid ID
-      }
-        */
-
       // check if the movie is already saved by comparing IDs
       const isSaved = savedMovies.some(saved => saved.id === movie.id);
+      const isWatched = watchedMovies.some(watched => watched.id === movie.id);
 
       // create a new div element for the movie card
       const movieCard = document.createElement('div');
@@ -36,14 +29,17 @@ fetch('https://www.james-chan.me/final-act/movies')
 
           <p class="details">
             <strong>RATING:</strong> ${movie.rating} <br>
-            <strong>2009 – 25H 43M</strong> <!-- this is just a placeholder, you might want to change it -->
+            <!-- this is just a placeholder for year and time, you might want to change it -->
           </p>
           <button class="action-button save-btn"
             onclick="saveForLater(${movie.id}, '${movie.title.replace(/'/g, "\\'")}', '${movie.image}', '${movie.description.replace(/'/g, "\\'")}', '${movie.rating}', this)">
             ${isSaved ? "Saved" : "Save for Later"} <!-- show 'Saved' if already saved, otherwise show 'Save for Later' -->
           </button>
 
-          <button class="action-button">Add to Watched</button> <!-- this button currently doesn't do anything -->
+          <button class="action-button watch-btn"
+            onclick="addToWatched(${movie.id}, '${movie.title.replace(/'/g, "\\'")}', '${movie.image}', '${movie.description.replace(/'/g, "\\'")}', '${movie.rating}', this)">
+            ${isWatched ? "Added" : "Add to Watched"}
+          </button>
         </div>
       `;
       // append the new movie card to the grid
@@ -54,25 +50,32 @@ fetch('https://www.james-chan.me/final-act/movies')
 
 // function to save a movie for later
 function saveForLater(id, title, image, description, rating, button) {
-    // get the saved movies from localStorage, or use an empty array if none are saved
-    let savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
-  
-    // debugging: log the saved movies before adding a new one
-    console.log("Saved Movies before saving:", savedMovies);
-  
-    // check if the movie is already in the saved list
-    if (!savedMovies.some(movie => movie.id === id)) {
-      savedMovies.push({ id, title, image, description, rating }); // add the movie to the saved list
-  
-      // debugging: log the saved movies after adding the new one
-      console.log("Saved Movies after saving:", savedMovies);
-  
-      // save the updated list of saved movies to localStorage
-      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-  
-      // update the button text to saved and disable it
-      button.textContent = "Saved";
-      button.disabled = true;
-      button.classList.add("saved");  
-    } 
+  let savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
+
+  // check if the movie is already in the saved list
+  if (!savedMovies.some(movie => movie.id === id)) {
+    savedMovies.push({ id, title, image, description, rating }); // add the movie to the saved list
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+
+    // update the button text to saved and disable it
+    button.textContent = "Saved";
+    button.disabled = true;
+    button.classList.add("saved");
+  }
+}
+
+// function to add a movie to the watched list
+function addToWatched(id, title, image, description, rating, button) {
+  let watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+
+  // check if the movie is already in the watched list
+  if (!watchedMovies.some(movie => movie.id === id)) {
+    watchedMovies.push({ id, title, image, description, rating }); // add the movie to the watched list
+    localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+
+    // update the button text to added and disable it
+    button.textContent = "Added";
+    button.disabled = true;
+    button.classList.add("watched");
+  }
 }
