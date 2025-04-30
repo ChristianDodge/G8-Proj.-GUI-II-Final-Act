@@ -2,6 +2,7 @@
 const params = new URLSearchParams(window.location.search);
 
 const value = params.get('mood'); // replace 'key' with your parameter name
+// Replace with: 'https://james-chan.me/filter-movies?mood=' + value
 fetch('http://localhost:3000/filter-movies?mood=' + value)
   .then(response => response.json()) // parse the response as JSON
   .then(movies => {
