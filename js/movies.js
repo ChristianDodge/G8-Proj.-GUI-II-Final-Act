@@ -79,3 +79,72 @@ function addToWatched(id, title, image, description, rating, button) {
     button.classList.add("watched");
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const mood = urlParams.get('mood');
+
+  if (mood) {
+    // Capitalize first letter
+    const moodCapitalized = mood.charAt(0).toUpperCase() + mood.slice(1);
+
+    // Update heading
+    const heading = document.getElementById('moviesHeading');
+    if (heading) {
+      heading.textContent = `${moodCapitalized} Movies`;
+    }
+
+    // Fetch filtered movies
+    fetch(`/filter-movies?mood=${mood}`)
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        displayMovies(data);
+      })
+      .catch(error => {
+        console.error('Error fetching movies:', error);
+        const container = document.getElementById('moviesContainer');
+        container.innerHTML = '<p>Sorry, something went wrong.</p>';
+      });
+  }
+});
+
+
+// Movie display function
+function displayMovies(movies) {
+  const container = document.getElementById('moviesContainer'); //
+  container.innerHTML = ''; // clear previous results
+
+  if (!movies || movies.length === 0) {
+    container.innerHTML = '<p>No movies found for this mood.</p>';
+    return;
+  }
+
+  movies.forEach(movie => {
+    const movieCard = document.createElement('div');
+    movieCard.className = 'movie-card';
+
+    movieCard.innerHTML = `
+      <img src="${movie.image}" alt="${movie.title}" class="poster">
+      <div class="movie-info">
+        <h3 class="title">${movie.title}</h3>
+        <p class="description scroll-box">${movie.description}</p>
+        <p class="details"><strong>RATING:</strong> ${movie.rating}</p>
+        <button class="action-button save-btn"
+          onclick="saveForLater(${movie.id}, '${movie.title.replace(/'/g, "\\'")}', '${movie.image}', '${movie.description.replace(/'/g, "\\'")}', '${movie.rating}', this)">
+          Save for Later
+        </button>
+        <button class="action-button watch-btn"
+          onclick="addToWatched(${movie.id}, '${movie.title.replace(/'/g, "\\'")}', '${movie.image}', '${movie.description.replace(/'/g, "\\'")}', '${movie.rating}', this)">
+          Add to Watched
+        </button>
+      </div>
+    `;
+
+    container.appendChild(movieCard);
+  });
+}
+
+

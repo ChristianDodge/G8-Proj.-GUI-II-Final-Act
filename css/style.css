@@ -1,16 +1,4 @@
 /*
-File: styles.css
-GUI II Assignment: Final Act Group Project
-Idil Hassan & Christian Dodge & Saeed Gudal & Shakib Tidjani
-
-This file is for stylizing the text for the entire project.
-
-Changelog:
-03/12/2025: CD: Created file.
-03/12/2025: CD: Added very basic implementation (no dynamic functionality, little formatting).
-03/13/2025: IH: Made it look almost like the protoype 
-03/18/2025: CD: Added some parts for watched.html and savedforlater.html formatting/styling.
-
 Image Source(s):
 • Figma template for the background image.
 */
@@ -71,9 +59,12 @@ header {
   opacity: 0.8;
 }
 
+ 
 nav {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+
 }
 
 .nav-button {
@@ -115,15 +106,15 @@ nav {
   letter-spacing: 1px;
 }
 
-/* Mood Grid Styles */
-.mood-grid {
+ /* Mood Grid Styles */
+ .mood-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+  gap: 15px;
   width: 100%;
   max-width: 1000px;
-  margin-bottom: 50px;
-}
+  margin-bottom: 70px; /* Give space for floating button at bottom */
+}  
 
 .mood-button {
   padding: 25px;
@@ -144,30 +135,33 @@ nav {
 
 /* Mood Button Colors */
 .happy { background-color: #9257C9; }
-.sad { background-color: #2795D1; }
+.sad { background-color: #8bb1c4; }
 .thrilling { background-color: #A82D8D; }
-.dramatic { background-color: #8865DC; }
-.adventurous { background-color: #89C84F; }
-.brave { background-color: #B91F1F; }
-.nostalgic { background-color: #204ABF; }
-.spooky { background-color: #3D2D2D; }
+.dramatic { background-color: #00827d; }
+.adventurous { background-color: #00780e; }
+.brave { background-color: #fff174; }
+.nostalgic { background-color: #a5e8ff; }
+.spooky { background-color: #ea6c6c; }
 .silly { background-color: #DDC139; }
-.romantic { background-color: #FF5FE1; }
-.hyped { background-color: #983D3D; }
-.chill { background-color: #D0752B; }
+.romantic { background-color: #d292c7; }
+.hyped { background-color: #5ca5ff; }
+.chill { background-color: #ffffff; }
 
 #group-prompt {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color:#524cff21;
+  background-color:#000000;
   padding: 15px 30px;
   border-radius: 50px;
   font-size: 24px;
   font-weight: bold;
   color: #ffffffb5;
+  padding: 12px 20px; /* Reduced padding for mobile */
+  font-size: 16px; /* Smaller font for mobile */
+
   
-}
+} 
 
 #group-prompt:hover {
   background-color: darkviolet;
@@ -279,7 +273,7 @@ nav {
 
 .movie-card h3 {
   margin: 10px 0;
-  font-size: 18px;
+  font-size: 30px;
   color: black;
 }
 
@@ -300,7 +294,7 @@ nav {
   color: black;
   border-radius: 10px;   /* Rounded corners */
   padding: 20px;
-  width: 500px;          /* Adjust size as needed */
+  width: 500px;         
   gap: 15px;            /* Space between image and text */
 }
 
@@ -321,7 +315,7 @@ nav {
   color: black;
   border-radius: 10px;   /* Rounded corners */
   padding: 20px;
-  width: 500px;          /* Adjust size as needed */
+  width: 500px;
   gap: 15px;            /* Space between image and text */
 }
 
@@ -461,3 +455,142 @@ nav {
   color: black;
   margin-top: 10px;
 }
+
+
+.mood-button.selected {
+  outline: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+
+.confirm-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-button:hover {
+  background-color: #555;
+}
+
+
+.mood-selection-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.dropdown-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.dropdown-container select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.dropdown-container select:hover {
+  border-color: #888;
+}
+
+#confirmMultiMood {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color:#000000;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffffb5;
+  
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+
+
+.movie-card:hover {
+  transform: scale(1.02);
+}
+
+/* Info Page Styling */
+
+.info-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.info-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.info-subtitle {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 30px 0 15px;
+}
+
+.info-section {
+  margin-bottom: 25px;
+  line-height: 1.5;
+  color: white;
+}
+
+/* Instructions Section */
+.instructions ol {
+  padding-left: 25px;
+}
+
+.instructions li {
+  margin-bottom: 10px;
+}
+
+/* Note styling */
+.note {
+  margin: 15px 0;
+}
+
+/* FAQ Section */
+.faq-item {
+  margin-bottom: 20px;
+}
+
+.faq-item h3 {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+
+
+
+
+
+
+
+
+
