@@ -66,7 +66,7 @@ function displayMovies(movies) {
       <div class="movie-info">
         <h3>${movie.title}</h3>
         <p class="description scroll-box">${movie.description}</p>
-        <p><strong>Rating:</strong> ${movie.rating}</p>
+        <p style="color: black;"><strong>Rating:</strong> ${movie.rating}</p>
         <button class="action-button save-btn"
           onclick="saveForLater(${movie.id}, '${escapeQuotes(movie.title)}', '${movie.image}', '${escapeQuotes(movie.description)}', '${movie.rating}', this)">
           ${isSaved ? 'Saved' : 'Save for Later'}

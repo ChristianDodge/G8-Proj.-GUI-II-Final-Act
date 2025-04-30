@@ -1,5 +1,8 @@
 // fetch movie data from the backend
-fetch('http://localhost:3000/movies')
+const params = new URLSearchParams(window.location.search);
+
+const value = params.get('mood'); // replace 'key' with your parameter name
+fetch('http://localhost:3000/filter-movies?mood=' + value)
   .then(response => response.json()) // parse the response as JSON
   .then(movies => {
     const moviesGrid = document.querySelector('.prev-movies-grid'); // find the grid where movies will be displayed
@@ -27,7 +30,7 @@ fetch('http://localhost:3000/movies')
           <h3 class="title">${movie.title}</h3>
           <p class="description scroll-box">${movie.description}</p> <!-- Added scroll-box class -->
 
-          <p class="details">
+          <p class="details" style="color: black;">
             <strong>RATING:</strong> ${movie.rating} <br>
             <!-- this is just a placeholder for year and time, you might want to change it -->
           </p>
@@ -131,7 +134,7 @@ function displayMovies(movies) {
       <div class="movie-info">
         <h3 class="title">${movie.title}</h3>
         <p class="description scroll-box">${movie.description}</p>
-        <p class="details"><strong>RATING:</strong> ${movie.rating}</p>
+        <p class="details" style="color: black;"><strong>RATING:</strong> ${movie.rating}</p>
         <button class="action-button save-btn"
           onclick="saveForLater(${movie.id}, '${movie.title.replace(/'/g, "\\'")}', '${movie.image}', '${movie.description.replace(/'/g, "\\'")}', '${movie.rating}', this)">
           Save for Later

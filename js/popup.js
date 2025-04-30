@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Close popup when clicking outside content
-    popup.addEventListener('click', function(event) {
+    popup?.addEventListener('click', function(event) {
         if (event.target === popup) {
             popup.style.display = 'none';
         }
     });
     
     // Toggle dropdown visibility when clicking on the select
-    dropdown.addEventListener('click', function(event) {
+    dropdown?.addEventListener('click', function(event) {
         dropdown.classList.toggle('open');
         event.stopPropagation();
     });

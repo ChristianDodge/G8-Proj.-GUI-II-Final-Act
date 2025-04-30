@@ -319,10 +319,6 @@ nav {
   gap: 15px;            /* Space between image and text */
 }
 
-.details {
-  color: black;
-}
-
 .description {
   display: flex;
   justify-content: center; /* Centers horizontally */
@@ -585,7 +581,9 @@ nav {
   margin-bottom: 8px;
 }
 
-
+.details {
+  color: black;
+}
 
 
 

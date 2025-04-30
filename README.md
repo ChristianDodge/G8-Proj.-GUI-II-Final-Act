@@ -3,9 +3,7 @@ This is the README.md for Final Act. It lists all the required dependencies for 
 
 # DEPENDENCIES
 These are the necessary dependencies for the environment. These must be installed for the website to run properly.
-    npm install dotenv
-    npm install express
-    npm install axios
+    npm install dotenv express axios
 
 
 # RUNNING
