@@ -1,9 +1,8 @@
-// fetch movie data from the backend
+const BACKEND_ROOT_URL = 'https://www.james-chan.me/final-act';
 const params = new URLSearchParams(window.location.search);
 
-const value = params.get('mood'); // replace 'key' with your parameter name
-// Replace with: 'https://james-chan.me/filter-movies?mood=' + value
-fetch('http://localhost:3000/filter-movies?mood=' + value)
+// fetch movie data from the backend
+fetch(BACKEND_ROOT_URL + '/filter-movies?mood=' + params.get('mood'))
   .then(response => response.json()) // parse the response as JSON
   .then(movies => {
     const moviesGrid = document.querySelector('.prev-movies-grid'); // find the grid where movies will be displayed
@@ -99,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Fetch filtered movies
-    fetch(`/filter-movies?mood=${mood}`)
+    fetch(BACKEND_ROOT_URL + `/filter-movies?mood=${mood}`)
       .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();

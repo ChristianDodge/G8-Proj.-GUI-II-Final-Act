@@ -5,17 +5,19 @@ const express = require('express');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const BASE_URL = "/final-act";
 
 const app = express();
-const PORT = 3000;
+const PORT = 5070;
 
-app.use(express.static(path.join(__dirname, 'pages')));
+app.use(BASE_URL, express.static(path.join(__dirname, 'pages')));
+app.use(BASE_URL, express.static(path.join(__dirname)));
 
-app.get('/', (req, res) => {
+// This is redundant, I don't why it exists
+app.get(BASE_URL + '/', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'index.html'));
 });
 
-app.use(express.static(path.join(__dirname)));
 app.use(express.json()); // to parse JSON request bodies
 
 function read() {
@@ -74,7 +76,7 @@ function write(data, field, type) { //write function which takes a data value (i
 
 
 // set up the route for filtering movies based on mood
-app.get('/filter-movies', async (req, res) => {
+app.get(BASE_URL + '/filter-movies', async (req, res) => {
     // get the 'mood' query parameter from the request
     const moodQuery = req.query.mood;
 
@@ -113,7 +115,7 @@ app.get('/filter-movies', async (req, res) => {
 
     try {
         // calculate the number of movies to retrieve for each mood
-        const moviesPerMood = Math.floor(99 / moods.length);
+        const moviesPerMood = Math.floor(10 / moods.length);
 
         // loop through each mood and fetch corresponding movies
         for (const mood of moods) {
@@ -163,7 +165,7 @@ app.get('/filter-movies', async (req, res) => {
 });
 
 
-app.get('/saved-movies', async (req, res) => {
+app.get(BASE_URL + '/saved-movies', async (req, res) => {
     try {
         let readData = await read();
         res.json(readData.saved || []);

@@ -1,0 +1,12 @@
+{
+  "iteration_count": 114514,
+  "targets": [
+    {
+      "secret_name": "GENSHIN",
+      "files": [
+        ".env"
+      ]
+    }
+  ],
+  "default_secret_name": "GENSHIN"
+}

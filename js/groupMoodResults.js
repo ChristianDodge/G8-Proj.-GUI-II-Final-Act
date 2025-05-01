@@ -1,3 +1,5 @@
+const BACKEND_ROOT_URL = 'https://www.james-chan.me/final-act';
+
 // waits for the page content to load before running the script
 document.addEventListener('DOMContentLoaded', () => {
   // gets URL parameters to extract the 'mood' value
@@ -18,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // make an API request to fetch movies based on the selected mood
-  fetch(`/filter-movies?mood=${encodeURIComponent(moodParam)}`)
+  fetch(BACKEND_ROOT_URL + `/filter-movies?mood=${encodeURIComponent(moodParam)}`)
     .then(res => {
       // if the response is not ok, throw an error
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
